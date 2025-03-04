@@ -38,8 +38,7 @@ function activate(context) {
 
         const extension = await vscode.extensions.getExtension(pluginId);
         if (extension) {
-            vscode.window.showInformationMessage(`Plugin ${pluginId} is already installed!`);
-            return;
+            throw new Error(`Plugin ${pluginId} is already installed!`);
         }
 
         try {
@@ -132,12 +131,46 @@ async function installPlugin(pluginId) {
         throw new Error(`Plugin download failed: ${error.message}`);
     }
 
-    // Install the plugin
-    console.log(`Installing plugin from: ${vsixPath}`);
-    await vscode.commands.executeCommand('workbench.extensions.installExtension', vscode.Uri.file(vsixPath));
+    try {
+        // Install the plugin
+        console.log(`Installing plugin from: ${vsixPath}`);
+        await vscode.commands.executeCommand('workbench.extensions.installExtension', vscode.Uri.file(vsixPath));
+    } catch (error) {
+        throw new Error(`Plugin installation failed: ${error.message}`);
+    }
+    finally {
+        // Clean up
+        fs.unlinkSync(vsixPath);
+    }
 
-    // Clean up
-    fs.unlinkSync(vsixPath);
+    // 轮询等待插件安装完成
+    const maxAttempts = 3;
+    let attempts = 0;
+    let installedExtension;
+    while (attempts < maxAttempts) {
+        installedExtension = await vscode.extensions.getExtension(pluginId);
+        if (installedExtension) {
+            break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 等待 1 秒
+        attempts++;
+    }
+
+    if (!installedExtension) {
+        throw new Error(`Failed to install plugin: ${pluginId}`);
+    }
+
+    // Check and install dependencies
+    const packageJSON = installedExtension.packageJSON;
+    if (packageJSON.extensionDependencies) {
+        for (const dependency of packageJSON.extensionDependencies) {
+            const depExtension = vscode.extensions.getExtension(dependency);
+            if (!depExtension) {
+                vscode.window.showInformationMessage(`Installing dependency: ${dependency}...`);
+                await installPlugin(dependency);
+            }
+        }
+    }
 }
 
 // Export activation function

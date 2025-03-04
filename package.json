@@ -1,9 +1,9 @@
 {
   "name": "vscode-plugin-installer",
   "displayName": "VS Code Plugin Installer",
-  "description": "A VS Code extension to install plugins from marketplace links or Extension ID",
-  "version": "0.0.1",
-  "publisher": "Sylar",
+  "description": "A VS Code extension to install plugins from Microsoft Marketplace Link or Extension ID",
+  "version": "0.0.2",
+  "publisher": "SylarLi",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -22,7 +22,7 @@
     "commands": [
       {
         "command": "vscode-plugin-installer.installPlugin",
-        "title": "Install Plugin from VS Code Marketplace Link or Extension ID"
+        "title": "Install Plugin from Microsoft Marketplace Link or Extension ID"
       }
     ]
   }

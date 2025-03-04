@@ -1,3 +1,5 @@
+[中文](README_zh.md)|**English**
+
 # VS Code Plugin Installer
 
 ## Description
@@ -16,3 +18,5 @@ A VS Code extension for installing plugins from marketplace links or extension I
 
 ## License
 MIT
+
+[查看中文版](README_zh.md)

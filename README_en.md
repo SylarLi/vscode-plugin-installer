@@ -6,7 +6,7 @@
 A VS Code extension for installing plugins from marketplace links or extension IDs.
 
 ## Install
-Find it from here: vscode-plugin-installer[https://open-vsx.org/extension/Sylar/vscode-plugin-installer]
+Find it from here: [vscode-plugin-installer](https://open-vsx.org/extension/Sylar/vscode-plugin-installer)
 
 ## Usage
 1. Press Ctrl+Shift+P to open the Command Palette

@@ -3,7 +3,7 @@
   "displayName": "VS Code Plugin Installer",
   "description": "A VS Code extension to install plugins from Microsoft Marketplace Link or Extension ID",
   "version": "0.0.2",
-  "publisher": "SylarLi",
+  "publisher": "Sylar",
   "engines": {
     "vscode": "^1.75.0"
   },

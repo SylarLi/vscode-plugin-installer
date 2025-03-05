@@ -10,9 +10,6 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:vscode-plugin-installer.installPlugin"
-  ],
   "main": "./extension.js",
   "repository": {
     "type": "git",
@@ -25,5 +22,11 @@
         "title": "Install Plugin from Microsoft Marketplace Link or Extension ID"
       }
     ]
+  },
+  "activationEvents": [
+    "onCommand:vscode-plugin-installer.installPlugin"
+  ],
+  "dependencies": {
+    "jszip": "^3.10.1"
   }
 }
